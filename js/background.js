@@ -2,7 +2,7 @@ function Background(game) {
   this.game = game;
 
   this.img = new Image();
-  this.img.src = 'img/rollo_planetas/Hyperealistic_Background.png';
+  this.img.src = 'img/planetas/Hyperealistic_Background.png';
 
   this.x = 0;
   this.y = 0;

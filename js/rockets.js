@@ -5,7 +5,7 @@ function Rocket(game) {
   this.h = 50;
 
   this.img = new Image();
-  this.img.src = 'img/rollo_planetas/rocket.png';
+  this.img.src = 'img/planetas/rocket.png';
 
   this.x = 110;
   this.y = 70;
