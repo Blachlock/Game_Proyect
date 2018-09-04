@@ -16,7 +16,6 @@ Rocket.prototype.draw = function() {
 }
 
 Rocket.prototype.rocketMovement = function(x, y) {
-  console.log(this.x, this.y, x, y)
   if (this.x < x && x != undefined) {
     this.x += 1;
   } else if (this.x > x && x != undefined) {
