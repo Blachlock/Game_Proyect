@@ -7,7 +7,8 @@ window.onload = function () {
   function on_canvas_click(event) {
     var x = event.offsetX;
     var y = event.offsetY;
-    console.log(x, y);
+    game.planet_finder(x, y);
+    
   }
 
 };

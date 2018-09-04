@@ -5,7 +5,7 @@ function Planet(game, x, y) {
   this.h = 80;
 
   this.img = new Image();
-  this.img.src = 'img/planetas/blue_planet.png';
+  this.img.src = 'img/planetas/player_planet.png';
 
   this.x = x;
   this.y = y;
