@@ -4,8 +4,7 @@ function Game(canvadId) {
   this.canvas.width = window.innerWidth - 20;
   this.canvas.height = window.innerHeight - 20;
   this.fps = 60;
-  this.destinox;
-  this.destinoy;
+  this.selectedPlanets = [];
   this.reset();
 }
 
@@ -15,9 +14,11 @@ Game.prototype.start = function() {
     this.moveAll();
     this.draw();
     this.eventListener();
-    if(this.destinox || this.destinoy){
-      this.rocket.rocketMovement(this.destinox, this.destinoy)
-    }
+    if(this.selectedPlanets.length === 2){
+      this.selectedPlanets[0].arrRockets.forEach(function(rocket){
+        rocket.rocketMovement(this.selectedPlanets[1]);
+      }.bind(this));
+    } 
   }.bind(this), 1000 / this.fps);
 };
 
@@ -28,10 +29,10 @@ Game.prototype.stop = function() {
 Game.prototype.reset = function() {
   this.background = new Background(this);
   this.arrPlanets = [
-    new Planet(this, 30, 60), 
-    new Planet(this, 300, 450), 
-    new Planet(this, 600, 60), 
-    new Planet(this, 900, 450)
+    new Planet(this, Math.round(Math.random() * this.canvas.width), Math.round(Math.random() * this.canvas.height)), 
+    new Planet(this, this.canvas.width * 0.25, this.canvas.height * 0.8), 
+    new Planet(this, this.canvas.width * 0.6, this.canvas.height * 0.08), 
+    new Planet(this, this.canvas.width * 0.9, this.canvas.height * 0.8)
   ];
   //this.createPlanets();
 };
@@ -64,25 +65,18 @@ Game.prototype.eventListener = function() {
 // };
 
 Game.prototype.planet_finder = function(x, y) {
+  console.log(x, y);
+  
+  this.arrPlanets.forEach(function(planet){
+      if(x > planet.x && x < planet.x + planet.w && y > planet.y && y < planet.y + planet.h) {
+        this.selectedPlanets.push(planet);
+        
+      }
+    }.bind(this));
+  console.log(this.selectedPlanets);
 
-  this.planets.forEach(function(planet){
-    if(x > planet.x && x < planet.x + planet.w && y > planet.y && y < planet.y + planet.h) {
-      this.destinox = planet.x + planet.w;
-      this.destinoy = planet.y ;
-    }
-  }.bind(this));
 
-  // if (x > 300 && x < 380 && y > 500 && y < 580) {
-  //   this.destinox = this.planet2.x + this.planet2.w;
-  //   this.destinoy = this.planet2.y;
-  // };
-  // if (x > 30 && x < 110 && y > 60 && y < 140) {
-  //   this.destinox = this.planet.x + this.planet.w;
-  //   this.destinoy = this.planet.y;
-  // } else {
-  //   console.log("false");
-  //   return false;
-  // }
+  
 };
 
 
