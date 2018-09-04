@@ -1,7 +1,8 @@
 function Game(canvadId) {
   this.canvas = document.getElementById(canvadId);
   this.ctx = this.canvas.getContext("2d");
-  
+  this.canvas.width = window.innerWidth - 20;
+  this.canvas.height = window.innerHeight - 20;
   this.fps = 60;
   this.destinox;
   this.destinoy;
@@ -26,17 +27,13 @@ Game.prototype.stop = function() {
 
 Game.prototype.reset = function() {
   this.background = new Background(this);
-  this.planets = [
+  this.arrPlanets = [
     new Planet(this, 30, 60), 
     new Planet(this, 300, 450), 
     new Planet(this, 600, 60), 
     new Planet(this, 900, 450)
   ];
   //this.createPlanets();
-  console.log(this.planets);
-  //new Planet(this, 30, 60);
-  // this.planet2 = new Planet(this, 300, 500);
-  this.rocket = new Rocket(this);
 };
 
 Game.prototype.clear = function() {
@@ -45,10 +42,13 @@ Game.prototype.clear = function() {
 
 Game.prototype.draw = function() {
   this.background.draw();
-  this.planets.forEach(function(planet){
+  this.arrPlanets.forEach(function(planet){
     planet.draw();
+    planet.arrRockets.forEach(function(rocket){
+      rocket.draw();
+    });
   });
-  this.rocket.draw();
+  //this.rocket.draw();
 };
 
 Game.prototype.moveAll = function() {
@@ -61,7 +61,8 @@ Game.prototype.eventListener = function() {
 //   for(var i = 0; i <= 2; i++){
 //     this.planets.push(new Planet(this, 30+i*100, 60));
 //   }
-// }
+// };
+
 Game.prototype.planet_finder = function(x, y) {
 
   this.planets.forEach(function(planet){
@@ -70,6 +71,7 @@ Game.prototype.planet_finder = function(x, y) {
       this.destinoy = planet.y ;
     }
   }.bind(this));
+
   // if (x > 300 && x < 380 && y > 500 && y < 580) {
   //   this.destinox = this.planet2.x + this.planet2.w;
   //   this.destinoy = this.planet2.y;

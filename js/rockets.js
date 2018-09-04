@@ -1,4 +1,4 @@
-function Rocket(game) {
+function Rocket(game, x, y) {
   this.game = game;
 
   this.w = 50;
@@ -7,8 +7,8 @@ function Rocket(game) {
   this.img = new Image();
   this.img.src = 'img/planetas/rocket.png';
 
-  this.x = 110;
-  this.y = 60;
+  this.x = x;
+  this.y = y;
 }
 
 Rocket.prototype.draw = function() {
