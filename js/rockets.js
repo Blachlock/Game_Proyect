@@ -30,11 +30,11 @@ Rocket.prototype.rocketMovement = function(planet) {
 
   if(this.x != planet.x) {
     this.x += this.distanceX;
-    this.x = Math.round(this.x*100)/100;
+    //this.x = Math.round(this.x*100)/100;
   }
   if(this.y != planet.y) {
     this.y += this.distanceY;
-    this.y = Math.round(this.y*100)/100;
+    //this.y = Math.round(this.y*100)/100;
   }
   if(this.x == planet.x && this.y == planet.y) {
     planet.arrRockets.push(this);
