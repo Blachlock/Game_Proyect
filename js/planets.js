@@ -12,9 +12,9 @@ function Planet(game, x, y) {
 
   this.arrRockets = [
     new Rocket(game, x, y), 
-    new Rocket(game, x, y+65), 
-    new Rocket(game, x, y+130), 
-    new Rocket(game, x, y+195)
+    new Rocket(game, x, y+10), 
+    new Rocket(game, x, y+20), 
+    new Rocket(game, x, y+30)
   ];
 
   //this.rocket = new Rocket(this);

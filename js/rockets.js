@@ -7,7 +7,7 @@ function Rocket(game, x, y) {
   this.img = new Image();
   this.img.src = 'img/planetas/rocket.png';
 
-  this.x = x + 100;
+  this.x = x;
   this.y = y;
 }
 
@@ -17,22 +17,25 @@ Rocket.prototype.draw = function() {
 
 Rocket.prototype.rocketMovement = function(planet) {
 
-  if (this.x < planet.x && planet.x != undefined) {
-    this.x += 1;
-  } else if (this.x > planet.x && planet.x != undefined) {
-     this.x -= 1;
+  if (this.x + this.w < planet.x && planet.x != undefined) {
+    this.x += 2;
+  } else if (this.x - this.w > planet.x + planet.w && planet.x != undefined) {
+     this.x -= 2;
   } 
-  if (this.y < planet.y && planet.y != undefined) {
-    this.y += 1;
-  } else if (this.y > planet.y && planet.y != undefined) {
-    this.y -= 1;
+  if (this.y + this.h < planet.y && planet.y != undefined) {
+    this.y += 2;
+  } else if (this.y > planet.y +planet.h && planet.y != undefined) {
+    this.y -= 2;
   } 
-  if (this.x == planet.x && this.y == planet.y) {
-    this.selectedPlanets = [];
-  }     
+   if (this.x + this.w > planet.x && this.x + this.w > planet.x && this.y + this.h > planet.y && this.y + this.h > planet.y) {
+    var sendRockets = 3;
+    for (i = 0; i < this.arrRockets.length; i++) {
+      this.selectedPlanets[1].arrRockets.push(sendRockets);
+    }
+   }  
     
 
-  //if(this.x > planet.x && this.x < planet.y + planet.w && this.y > planet.y && this.y < planet.y + planet.h){
-    //this.selectedPlanets[1].arrRockets.push(rocket);
-  //}
-};
+  // if(this.x > planet.x && this.x < planet.x + planet.w && this.y > planet.y && this.y < planet.y + planet.h){
+  //   this.selectedPlanets[1].arrRockets.push(rocket);
+  // }
+}
