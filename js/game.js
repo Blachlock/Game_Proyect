@@ -51,7 +51,11 @@ Game.prototype.draw = function() {
     planet.draw();
     this.ctx.font = "70px sans-serif";
     this.ctx.fillStyle = "red";
-    this.ctx.fillText('0'+planet.arrRockets.length, planet.x + planet.w/3.4, planet.y + planet.h/1.6);
+    if(planet.arrRockets.length < 10) {
+      this.ctx.fillText('0' + planet.arrRockets.length, planet.x + planet.w/3.4, planet.y + planet.h/1.6);
+    } else {
+      this.ctx.fillText(planet.arrRockets.length, planet.x + planet.w/3.4, planet.y + planet.h/1.6);
+    }
     planet.arrRockets.forEach(function(rocket){
       rocket.draw();
     });
