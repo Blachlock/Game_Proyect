@@ -9,33 +9,35 @@ function Rocket(game, x, y) {
 
   this.x = x;
   this.y = y;
+  this.distanceX;
+  this.distanceY;
 }
 
 Rocket.prototype.draw = function() {
   this.game.ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
 }
 
+Rocket.prototype.calculateDistance = function(planet) {
+  
+  this.distanceX = (planet.x - this.x);
+  this.distanceY = (planet.y - this.y);
+  console.log(this.distanceX, this.distanceY);
+}
+
 Rocket.prototype.rocketMovement = function(planet) {
 
-  if (this.x + this.w < planet.x && planet.x != undefined) {
-    this.x += 2;
-  } else if (this.x - this.w > planet.x + planet.w && planet.x != undefined) {
-     this.x -= 2;
-  } 
-  if (this.y + this.h < planet.y && planet.y != undefined) {
-    this.y += 2;
-  } else if (this.y > planet.y +planet.h && planet.y != undefined) {
-    this.y -= 2;
-  } 
-   if (this.x + this.w > planet.x && this.x + this.w > planet.x && this.y + this.h > planet.y && this.y + this.h > planet.y) {
-    var sendRockets = 3;
-    for (i = 0; i < this.arrRockets.length; i++) {
-      this.selectedPlanets[1].arrRockets.push(sendRockets);
-    }
-   }  
-    
-
-  // if(this.x > planet.x && this.x < planet.x + planet.w && this.y > planet.y && this.y < planet.y + planet.h){
-  //   this.selectedPlanets[1].arrRockets.push(rocket);
-  // }
+  if(this.x != planet.x) {
+    this.x += this.distanceX;
+    //this.x = Math.round(this.x*100)/100;
+  }
+  if(this.y != planet.y) {
+    this.y += this.distanceY;
+    //this.y = Math.round(this.y*100)/100;
+  }
+  if(this.x == planet.x && this.y == planet.y) {
+    planet.arrRockets.push(this);
+    this.game.selectedPlanets[0].arrRockets.pop();
+    this.distanceX=undefined;
+    this.distanceY=undefined;
+  }
 }

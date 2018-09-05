@@ -5,6 +5,8 @@ function Game(canvadId) {
   this.canvas.height = window.innerHeight - 20;
   this.fps = 60;
   this.selectedPlanets = [];
+  this.arrayRocketPlanetDestino = 0;
+  this.numberRockets = 0;
   this.reset();
   
 }
@@ -25,10 +27,10 @@ Game.prototype.stop = function() {
 Game.prototype.reset = function() {
   this.background = new Background(this);
   this.arrPlanets = [
-   //new Planet(this, Math.round(Math.random() * this.canvas.width), Math.round(Math.random() * this.canvas.height)), 
+   new Planet(this, Math.round(Math.random() * this.canvas.width), Math.round(Math.random() * this.canvas.height)), 
     new Planet(this, 300, 100), 
     new Planet(this, 1000, 600), 
-    new Planet(this, this.canvas.width * 0.9, this.canvas.height * 0.8)
+    //new Planet(this, Math.round(this.canvas.width * 0.9), Math.round(this.canvas.height * 0.8))
   ];
   //this.createPlanets();
 };
@@ -54,14 +56,21 @@ Game.prototype.moveAll = function() {
 
 Game.prototype.eventListener = function() {
   if(this.selectedPlanets.length == 2){
-    this.selectedPlanets[0].arrRockets.forEach(function(rocket){
+    if(this.arrayRocketPlanetDestino == 0){
+      this.arrayRocketPlanetDestino = this.selectedPlanets[1].arrRockets.length;
+      this.numberRockets = 4;
+    }
+    this.selectedPlanets[0].arrRockets.forEach(function(rocket, index){
+      if(!rocket.distanceX && !rocket.distanceY){
+        console.log(index);
+        rocket.calculateDistance(this.selectedPlanets[1]);
+      }
       rocket.rocketMovement(this.selectedPlanets[1]);
+      if(this.arrayRocketPlanetDestino + this.numberRockets == this.selectedPlanets[1].arrRockets.length){
+        this.selectedPlanets = [];
+      }
     }.bind(this));
   } 
-  else if(this.selectedPlanets.length == 3){
-    console.log("entra")
-    this.selectedPlanets = [];
-  }
 };
 
 // Game.prototype.createPlanets = function() {
@@ -71,7 +80,6 @@ Game.prototype.eventListener = function() {
 // };
 
 Game.prototype.planet_finder = function(clickX, clickY) {
-  console.log(clickX, clickY);
   
   this.arrPlanets.forEach(function(planet){
       if(clickX > planet.x && clickX < planet.x + planet.w && clickY > planet.y && clickY < planet.y + planet.h) {
