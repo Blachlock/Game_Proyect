@@ -9,15 +9,10 @@ function Planet(game, x, y) {
 
   this.x = x;
   this.y = y;
-  //console.log(x, y)
-  this.arrRockets = [
-    new Rocket(game, x, y), 
-    new Rocket(game, x, y), 
-    new Rocket(game, x, y), 
-    new Rocket(game, x, y)
-  ];
 
-  //this.rocket = new Rocket(this);
+  this.arrRockets = [];
+
+  this.rocket = new Rocket(game);
 }
 
 Planet.prototype.draw = function() {
