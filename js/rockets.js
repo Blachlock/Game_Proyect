@@ -1,8 +1,8 @@
 function Rocket(game, x, y, rocketTeam) {
   this.game = game;
   
-  this.w = game.canvas.width * 0.03;
-  this.h = game.canvas.height * 0.04;
+  this.w = game.canvas.width * 0.02;
+  this.h = game.canvas.height * 0.03;
 
   this.img = new Image();
   this.img.src = 'img/planetas/rocket.png';

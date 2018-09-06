@@ -1,8 +1,8 @@
 function Planet(game, x, y) {
   this.game = game;
 
-  this.w = game.canvas.width * 0.08;
-  this.h = game.canvas.width * 0.08;
+  this.w = game.canvas.width * 0.06;
+  this.h = game.canvas.width * 0.06;
 
   this.img = new Image();
   this.img.src = 'img/planetas/player_planet.png';
@@ -31,5 +31,7 @@ Planet.prototype.conquerPlanet = function() {
     if(this.arrRockets.length >= 10) {
      this.conquer = true;
      this.planetTeam = this.arrRockets[0].rocketTeam;
+    } else {
+        this.conquer = false;
     }
 }
