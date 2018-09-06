@@ -12,6 +12,8 @@ function Planet(game, x, y) {
 
   this.arrRockets = [];
 
+  this.conquer = false;
+
   this.rocket = new Rocket(game);
 }
 
@@ -20,4 +22,15 @@ Planet.prototype.draw = function() {
 
 }
 
+Planet.prototype.generateRockets = function() {
+ 
+    this.arrRockets.push(new Rocket(this.game, this.x, this.y));
+  
+};
 
+Planet.prototype.conquerPlanet = function() {
+
+  if(this.arrRockets.length >= 10) {
+    this.conquer = true
+  }
+}
