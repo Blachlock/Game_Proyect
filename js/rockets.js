@@ -1,6 +1,5 @@
 function Rocket(game, x, y) {
   this.game = game;
-  console.log(game);
   
   this.w = game.canvas.width * 0.03;
   this.h = game.canvas.height * 0.04;
@@ -23,18 +22,18 @@ Rocket.prototype.calculateDistance = function(planet) {
   
   this.distanceX = (planet.x - this.x)/100;
   this.distanceY = (planet.y - this.y)/100;
-  console.log(this.distanceX, this.distanceY);
+  // console.log(this.distanceX, this.distanceY);
 }
 
 Rocket.prototype.rocketMovement = function(planet) {
 
   if(this.x != planet.x) {
     this.x += this.distanceX;
-    //this.x = Math.round(this.x*100)/100;
+    this.x = Math.round(this.x*100)/100;
   }
   if(this.y != planet.y) {
     this.y += this.distanceY;
-    //this.y = Math.round(this.y*100)/100;
+    this.y = Math.round(this.y*100)/100;
   }
   if(this.x == planet.x && this.y == planet.y) {
     planet.arrRockets.push(this);

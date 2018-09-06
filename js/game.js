@@ -38,8 +38,8 @@ Game.prototype.reset = function() {
 
     this.arrPlanets = [
     new Planet(this, 1000, 100), 
+    new Planet(this, 1000, 600), 
     //new Planet(this, Math.round(Math.random() * this.canvas.width), Math.round(Math.random() * this.canvas.height)), 
-    //new Planet(this, 1000, 600), 
     //new Planet(this, Math.round(this.canvas.width * 0.9), Math.round(this.canvas.height * 0.8))
     ];
 
@@ -85,25 +85,29 @@ Game.prototype.generateRockets = function() {
 
 Game.prototype.eventListener = function() {
   if(this.selectedPlanets.length == 2){
+    this.numberRockets;
     if(this.arrayRocketPlanetDestino == 0){
       this.arrayRocketPlanetDestino = this.selectedPlanets[1].arrRockets.length;
+      console.log(this.arrayRocketPlanetDestino)
       this.numberRockets;
     }
     this.selectedPlanets[0].arrRockets.forEach(function(rocket, index){
-      if(!rocket.distanceX && !rocket.distanceY){
-        console.log(index);
-        rocket.calculateDistance(this.selectedPlanets[1]);
-      }
-      rocket.rocketMovement(this.selectedPlanets[1]);
-      if(this.arrayRocketPlanetDestino + this.numberRockets == this.selectedPlanets[1].arrRockets.length){
-        this.selectedPlanets = [];
+      if(this.selectedPlanets.length == 2){
+        if(!rocket.distanceX && !rocket.distanceY){
+          // console.log(index);
+          rocket.calculateDistance(this.selectedPlanets[1]);
+        }
+        rocket.rocketMovement(this.selectedPlanets[1]);
+        if(this.arrayRocketPlanetDestino + this.numberRockets == this.selectedPlanets[1].arrRockets.length){
+          this.selectedPlanets = [];
+          this.arrayRocketPlanetDestino = 0;
+        }
       }
     }.bind(this));
   } 
 };
 
 Game.prototype.planet_finder = function(clickX, clickY) {
-  
   this.arrPlanets.forEach(function(planet){
       if(clickX > planet.x && clickX < planet.x + planet.w && clickY > planet.y && clickY < planet.y + planet.h) {
         this.selectedPlanets.push(planet);
