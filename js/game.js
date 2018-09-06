@@ -6,9 +6,8 @@ function Game(canvadId) {
   this.fps = 60;
   this.reset();
   this.selectedPlanets = [];
-  //this.generateRockets();
   this.arrayRocketPlanetDestino = 0;
-  this.numberRockets = 2;
+  this.numberRockets = 5;
 
 
 };
@@ -21,7 +20,7 @@ Game.prototype.start = function () {
     this.counter++;
     this.arrPlanets.forEach(function (planet) {
       planet.conquerPlanet();
-      if (this.counter % 300 == 0) {
+      if (this.counter % 180 == 0) {
         if (planet.conquer == true) {
           planet.generateRockets();
         };
@@ -41,14 +40,15 @@ Game.prototype.reset = function () {
 
   this.arrPlanets = [
     new Planet(this, 100, 100),
-    new Planet(this, 1000, 100),
-    new Planet(this, 1000, 600),
+    new Planet(this, 1000, 100, ''),
+    new Planet(this, 1000, 600, ''),
     //new Planet(this, Math.round(Math.random() * this.canvas.width), Math.round(Math.random() * this.canvas.height)), 
     //new Planet(this, Math.round(this.canvas.width * 0.9), Math.round(this.canvas.height * 0.8))
   ];
   //this.createPlanets();
   this.arrPlanets[0].arrRockets.length = 5;
   this.arrPlanets[0].conquer = true;
+  this.arrPlanets[0].planetEquip = 'blue';
 };
 
 Game.prototype.clear = function () {

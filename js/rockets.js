@@ -11,6 +11,8 @@ function Rocket(game, x, y) {
   this.y = y;
   this.distanceX;
   this.distanceY;
+
+  this.rocketEquip;
   
 }
 
