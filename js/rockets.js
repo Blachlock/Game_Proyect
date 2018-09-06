@@ -1,4 +1,4 @@
-function Rocket(game, x, y) {
+function Rocket(game, x, y, rocketTeam) {
   this.game = game;
   
   this.w = game.canvas.width * 0.03;
@@ -11,8 +11,8 @@ function Rocket(game, x, y) {
   this.y = y;
   this.distanceX;
   this.distanceY;
-
-  this.rocketEquip;
+  this.planetDestiny = undefined;
+  this.rocketTeam = rocketTeam;
   
 }
 
@@ -24,23 +24,27 @@ Rocket.prototype.calculateDistance = function(planet) {
   
   this.distanceX = (planet.x - this.x)/100;
   this.distanceY = (planet.y - this.y)/100;
+  this.planetDestiny = planet;
   // console.log(this.distanceX, this.distanceY);
 }
 
-Rocket.prototype.rocketMovement = function(planet) {
-
-  if(this.x != planet.x) {
+Rocket.prototype.rocketMovement = function() {
+  if(this.x != this.planetDestiny.x) {
     this.x += this.distanceX;
     this.x = Math.round(this.x*100)/100;
   }
-  if(this.y != planet.y) {
+
+  if(this.y != this.planetDestiny.y) {
     this.y += this.distanceY;
     this.y = Math.round(this.y*100)/100;
   }
-  if(this.x == planet.x && this.y == planet.y) {
-    planet.arrRockets.push(this);
-    this.game.selectedPlanets[0].arrRockets.pop();
-    this.distanceX=undefined;
-    this.distanceY=undefined;
+
+  if(this.x == this.planetDestiny.x && this.y == this.planetDestiny.y) {
+    if(this.planetDestiny.planetTeam == this.rocketTeam || this.planetDestiny.arrRockets.length == 0 || this.planetDestiny.planetTeam == 0) {
+      this.planetDestiny.arrRockets.push(this);
+    } else {
+      this.planetDestiny.arrRockets.shift();
+    }
+    this.game.rocketsMove.shift();
   }
 }

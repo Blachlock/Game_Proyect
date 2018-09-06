@@ -14,7 +14,7 @@ function Planet(game, x, y) {
 
   this.conquer = false;
 
-  this.planetEquip = '';
+  this.planetTeam = '';
 
   this.rocket = new Rocket(game);
 }
@@ -24,11 +24,12 @@ Planet.prototype.draw = function() {
 }
 
 Planet.prototype.generateRockets = function() {
-    this.arrRockets.push(new Rocket(this.game, this.x, this.y, this.rocketEquip));
+    this.arrRockets.push(new Rocket(this.game, this.x, this.y, this.planetTeam));
 }
 
 Planet.prototype.conquerPlanet = function() {
     if(this.arrRockets.length >= 10) {
      this.conquer = true;
+     this.planetTeam = this.arrRockets[0].rocketTeam;
     }
 }
