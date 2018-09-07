@@ -6,7 +6,6 @@ function Game(canvadId) {
   this.fps = 60;
   this.reset();
   this.selectedPlanets = [];
-  this.numberRockets = 5;
   this.rocketsMove = [];
 
 };
@@ -20,7 +19,7 @@ Game.prototype.start = function () {
       if (this.counter % 180 == 0) {
         if (planet.conquer == true) {
           planet.generateRockets();
-        };
+        }
       }
     }.bind(this));
     this.rocketsMove.forEach(function(rocket){
@@ -40,11 +39,11 @@ Game.prototype.reset = function () {
   this.background = new Background(this);
 
   this.arrPlanets = [
-    new Planet(this, this.canvas.width * 0.1, this.canvas.height * 0.1),
-    new Planet(this, this.canvas.width * 0.9, this.canvas.height * 0.85),
-    new Planet(this, this.canvas.width * 0.5, this.canvas.height * 0.5),
-    new Planet(this, this.canvas.width * 0.3, this.canvas.height * 0.3),
-    new Planet(this, (Math.round(Math.random() * this.canvas.width)), (Math.round(Math.random() * this.canvas.height))), 
+    new Planet(this, Math.round(this.canvas.width * 0.1), Math.round(this.canvas.height * 0.1)),
+    new Planet(this, Math.round(this.canvas.width * 0.9), Math.round(this.canvas.height * 0.85)),
+    new Planet(this, Math.round(this.canvas.width * 0.5), Math.round(this.canvas.height * 0.5)),
+    new Planet(this, Math.round(this.canvas.width * 0.3), Math.round(this.canvas.height * 0.3)),
+    new Planet(this, (Math.round(Math.random() * (this.canvas.width-500))), (Math.round(Math.random() * (this.canvas.height-500)))), 
   ];
   for(var i = 0; i < 20; i++){
     this.arrPlanets[0].arrRockets.push(new Rocket(this, this.arrPlanets[0].x, this.arrPlanets[0].y, 'blue'))
@@ -65,11 +64,10 @@ Game.prototype.clear = function () {
 
 Game.prototype.draw = function () {
   this.background.draw();
-
   this.arrPlanets.forEach(function (planet) {
     planet.draw();
-    this.ctx.font = "70px sans-serif";
-    this.ctx.fillStyle = "green";
+    this.ctx.font = "90px sans-serif";
+    this.ctx.fillStyle = "white";
     if (planet.arrRockets.length < 10) {
       this.ctx.fillText('0' + planet.arrRockets.length, planet.x + planet.w / 3.4, planet.y + planet.h / 1.6);
     } else {
@@ -92,13 +90,14 @@ Game.prototype.draw = function () {
 
 Game.prototype.eventListener = function () {
   if(this.selectedPlanets.length == 2){
+    this.numberRocketsSend = prompt('Cuantos cohetes quieres enviar?');
     if(this.selectedPlanets[0].arrRockets.length >= 10){    
-      for(var i = 0; i <= this.numberRockets - 1; i++){     
+      for(var i = 0; i <= this.numberRocketsSend - 1; i++){     
         var rockets = this.selectedPlanets[0].arrRockets;   
         rockets[rockets.length - 1].calculateDistance(this.selectedPlanets[1]); 
         this.rocketsMove.push(rockets[rockets.length - 1]); 
         rockets.pop();                                     
-        if(i + 1 == this.numberRockets){   
+        if(i + 1 == this.numberRocketsSend){   
           this.selectedPlanets = [];       
         }
       }
@@ -125,5 +124,3 @@ Game.prototype.planet_finder = function (clickX, clickY) {
 //   this.ctx.fillStyle = "gray";
 //   this.ctx.fillText(this.arrPlanets.length, 50, 50);
 // }
-
-

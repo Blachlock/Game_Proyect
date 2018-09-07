@@ -29,7 +29,7 @@ Rocket.prototype.calculateDistance = function(planet) {
   this.distanceX = (planet.x - this.x)/100;
   this.distanceY = (planet.y - this.y)/100;
   this.planetDestiny = planet;
-  // console.log(this.distanceX, this.distanceY);
+   console.log(this.distanceX, this.distanceY);
 }
 
 Rocket.prototype.rocketMovement = function() {

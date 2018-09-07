@@ -1,8 +1,8 @@
 function Planet(game, x, y) {
     this.game = game;
 
-    this.w = game.canvas.width * 0.06;
-    this.h = game.canvas.width * 0.06;
+    this.w = Math.round(game.canvas.width * 0.06);
+    this.h = Math.round(game.canvas.width * 0.06);
 
     this.blue = new Image();
     this.blue.src = 'img/planetas/player_planet.png';
