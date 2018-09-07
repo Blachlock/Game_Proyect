@@ -4,8 +4,11 @@ function Rocket(game, x, y, rocketTeam) {
   this.w = game.canvas.width * 0.02;
   this.h = game.canvas.height * 0.03;
 
-  this.img = new Image();
-  this.img.src = 'img/planetas/rocket.png';
+  this.rocketBlue = new Image();
+  this.rocketBlue.src = 'img/planetas/rocketBlue.png';
+
+  this.rocketRed = new Image();
+  this.rocketRed.src = 'img/planetas/rocketRed.png';
 
   this.x = x;
   this.y = y;
@@ -13,6 +16,7 @@ function Rocket(game, x, y, rocketTeam) {
   this.distanceY;
   this.planetDestiny = undefined;
   this.rocketTeam = rocketTeam;
+  this.who();
   
 }
 
@@ -43,8 +47,15 @@ Rocket.prototype.rocketMovement = function() {
     if(this.planetDestiny.planetTeam == this.rocketTeam || this.planetDestiny.arrRockets.length == 0 || this.planetDestiny.planetTeam == 0) {
       this.planetDestiny.arrRockets.push(this);
     } else {
-      this.planetDestiny.arrRockets.shift();
+      this.planetDestiny.arrRockets.pop();
     }
     this.game.rocketsMove.shift();
+  }
+}
+Rocket.prototype.who = function() {
+  if(this.rocketTeam == 'blue') {
+    this.img = this.rocketBlue;
+  } else if (this.rocketTeam == 'red'){
+    this.img = this.rocketRed;
   }
 }
